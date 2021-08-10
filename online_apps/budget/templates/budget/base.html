@@ -1,0 +1,103 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/charts.css/dist/charts.min.css">
+
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- <link rel="stylesheet" href="{% static 'budget/style.css' %}"> -->
+    <style>
+
+
+    /* body {
+    background-color: #fffcff;
+    display: grid;
+    grid-template-rows: 120px 100% 200px;
+    } */
+
+    .footer-spacing{
+        height: 200px;
+    }
+    
+
+    .header{
+        width: 100%;
+        color: #fffcff;
+    }
+
+    body {
+        min-height: 100vh;
+        position: relative;
+    }
+
+    footer {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+    }
+    
+    .row button{
+        margin-top: 1.5em;
+        margin-right: 1.5em;
+        background-color: #247ba0;
+    }
+
+    .logo{
+        font-style:italic;
+        font-weight:bold;
+        text-shadow: 0px 0px 5px #679436;
+    }
+
+    .logo a{
+        color: #fffcff;
+    }
+
+    .green-color {
+        background-color: #679436 !important;
+    }
+
+    .gray-color {
+        background-color: #50514f !important;
+    }
+
+    .orange-color {
+        background-color: #f4a259 !important;
+    }
+
+    .blue-color {
+        background-color: #247ba0 !important;
+    }
+
+    </style>
+    
+    <title>{% block title %}{% endblock %}</title>
+
+</head>
+<body>
+    <main>
+
+        {% include 'budget/_header.html' %}
+        
+        
+        <div>
+            {% block content %}
+            {% endblock %}
+        </div>
+        
+        {% include 'budget/_footer.html' %}
+    </main>
+</body>
+</html>

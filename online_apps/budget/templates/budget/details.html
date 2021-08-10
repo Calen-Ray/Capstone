@@ -1,0 +1,95 @@
+
+{% extends 'budget/base.html' %}
+{% block title %} Online budget made easy {% endblock %}
+
+{% block content %}
+
+
+
+
+
+
+{% if ref_number %}
+<div class="container row">
+    
+    <H2 class='col s8 m8 offset-s2 offset-m2 center-align'>{{budget.name}}'s budget</H2>
+    <form action="{% url 'budget:edit' ref_number %}" method="POST" class='center-align'>
+        {% csrf_token %}
+        <button class=" col s2 m4 offset-m4 btn waves-effect waves-light " type="submit" name="action">Edit my Budget</button>
+    </form>
+    <h4 class='col s8 m8 offset-s2 offset-m2 center-align'>First written: {{budget.time}}</h4>
+    
+    
+    <div class="income col s4 m4 offset-s2 offset-m2 center-align">
+        <p class="budget_details">Yearly Income: {{budget.income}}</p>
+        <p class="budget_details">Monthly Income: {{budget.monthly_income}}</p>
+        {% if budget.tax > 0 %}
+        <p>Projected tax rate: {{budget.tax}}%</p>
+        <p>Project tax paid Monthly: {{budget.taxes_monthly}}</p>
+        {% endif %}
+    </div>
+    
+    <div class="col s4 m4 center-align">
+        <p class="budget_details">Expenses: {{budget.expenses}}</p>
+        <p class="budget_details">Debt: {{budget.debt}}</p>
+        <p class="budget_details">Current savings level: {{budget.current_savings}}</p>
+        <p class="budget_details">Suggested savings changes: {{budget.savings_advice}}</p>
+    </div>
+    
+</div>
+
+
+<div class='my-chart container'>
+    
+    
+    <table  class='charts-css bar show-labels show-primary-axis data-spacing-5'>
+        
+        <caption> Budget Data for reference #{{budget.reference_id}}</caption>
+        
+        <thead>
+            <tr>
+                <th scope="col"> information </th>
+                <th scope="col"> data </th>
+            </tr>
+        </thead>
+        
+        <tbody>
+            
+            
+            <tr>
+                <th scope="row"> Income </th>
+                <td> ${{budget.monthly_income}} </td>
+            </tr>
+            
+            <tr>
+                <th scope="row" > Tax </th>
+                <td style="--size: calc( {{budget.tax}} / 100 );"> {{budget.tax}}%  ${{budget.taxes_monthly}}</td>
+            </tr>
+            
+            <tr>
+                <th scope="row" > Expenses </th>
+                <td style="--size: calc( {{budget.expenses}} / calc({{budget.monthly_income}}) );"> ${{budget.expenses}} </td>
+            </tr>
+            
+            <tr>
+                <th scope="row"> Debt </th>
+                <td style="--size: calc( {{budget.debt}} / calc({{budget.monthly_income}}) );"> ${{budget.debt}} </td>
+            </tr>
+            
+            
+            
+            
+        </tbody>
+        
+    </table>
+</div>
+
+
+
+
+{% else %}
+BAD REF NUMBER 
+{% endif %}
+
+<br><br><br><br><br><br>
+{% endblock %}

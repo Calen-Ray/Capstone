@@ -1,0 +1,70 @@
+{% extends 'budget/base.html' %}
+{% block title %} Online budget made easy {% endblock %}
+
+{% block content %}
+
+
+
+
+{% if ref_number %}
+<div class="container row">
+    
+    <H2 class='col s8 m8 offset-s2 offset-m2 center-align'>{{budget.name}}'s budget</H2>
+
+    <h4 class='col s8 m8 offset-s2 offset-m2 center-align'>First written: {{budget.time}}</h4>
+    
+    
+    <div class="income col s4 m4 offset-s2 offset-m2 center-align row">
+        <form action="{% url 'budget:save' ref_number %}" method="POST">
+            {% csrf_token %}
+
+            <div class="col s3 offset-s1 m3 offset-m1">
+                <label for=""> Ref-ID</label>
+                <input type="text" name="reference_id" id="" value='{{budget.reference_id}}'>
+            </div>
+
+            <div class="col s3 offset-s1 m3 offset-m1">
+                <label for="">Income</label>
+                <input type="text" name="income" id="" value='{{budget.income}} '>
+            </div>
+
+            <div class="col s3 offset-s1 m3 offset-m1">
+                <label for="">Tax</label>
+                <input type="text" name="tax" id="" value='{{budget.tax}} '>
+            </div>
+
+            <div class="col s3 offset-s1 m3 offset-m1">
+                <label for="">Expenses</label>
+                <input type="text" name="expenses" id="" value='{{budget.expenses}} '>
+            </div>
+
+            <div class="col s3 offset-s1 m3 offset-m1">
+                <label for="">Debt</label>
+                <input type="text" name="debt" id="" value='{{budget.debt}} '>
+            </div>
+
+            <div class="col s3 offset-s1 m3 offset-m1">
+                <label for="">Savings</label>
+                <input type="text" name="current_savings" id="" value='{{budget.current_savings}} '>
+            </div>
+        </div>
+
+
+    </div>
+        <button class=" btn waves-effect waves-light center-align" type="submit" name="action">Save my budget</button>
+    </form>
+    
+</div>
+
+
+
+
+
+
+{% else %}
+BAD REF number 
+{% endif %}
+
+
+
+{% endblock %}

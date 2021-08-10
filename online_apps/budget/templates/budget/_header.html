@@ -1,0 +1,22 @@
+
+{% block content %}
+<div class="header green-color row">
+    <h2 class='logo col s10 left m5'><a href="{% url 'budget:home' %}">Budget bird</a></h2>
+
+
+        <form class="col s10 m5 right" action="{% url 'budget:details' %}" method='POST'>
+            {% csrf_token %}
+
+            <div class="row">
+                <button class=" col s2 m3 btn waves-effect waves-light right" type="submit" name="action">Find my budget!<i class="material-icons right">send</i></button>
+                <div class="input-field col s7 m4 right">
+                    <i class="material-icons prefix">insert_chart</i>
+                    <textarea name="ref_number" id="icon_prefix2" class="materialize-textarea"></textarea>
+                    <label for="icon_prefix2">Reference ID</label>
+                </div>
+            </div>
+        </form>
+
+
+</div>
+{% endblock %}
