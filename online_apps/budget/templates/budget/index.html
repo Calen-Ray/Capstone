@@ -1,23 +1,49 @@
-
 {% extends 'budget/base.html' %}
 {% block title %} Online budget made easy {% endblock %}
 
 {% block content %}
+{% load static %}
 
 
 
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
+<div class="row">    
+    <img class='col s9 m9 offset-m1 offset-s1' src="{% static 'budget/macbook.png' %}" alt="budget app on a macbook pro" >
+    <h1 class='header-one col s5 m5 offset-s6 offset-m6 '>
+        Get more of whatever out of your money. 
+    </h1>
+    <div class="flashing-arrow  col offset-m6 offset-s6"></div>
+    <div class="flashing-arrow delay-one col offset-m6 offset-s6"></div>
+    <div class="flashing-arrow delay-two col offset-m6 offset-s6"></div>
+</div>
 
+<div class="row">
+    <h1 class='header-two col s7 m7'>
+        Your money goes further with a plan.
+    </h1>
+    <img class='col s5 m5 offset-m7 offset-s7' src="{% static 'budget/rain.gif' %}" alt="">
+    <div class="flashing-arrow col offset-m6 offset-s6"></div>
+    <div class="flashing-arrow delay-one col offset-m6 offset-s6"></div>
+    <div class="flashing-arrow delay-two col offset-m6 offset-s6"></div>
+</div>
 
+<div class="row">    
+    <img class='col s3 m3 offset-m1 offset-s1' src="{% static 'budget/chart.gif' %}" alt="budget app on a macbook pro" >
+    <h1 class='header-three col s6 m6 offset-s5 offset-m5 '>
+        We will help you check for problems with your budget!
+    </h1>
+
+</div>
+    
 {% endblock %}
 
 <!-- <h2>Recently created budgets</h2>
-
+    
     {% for budget in details %}
-
+    
     <h3>{{budget.name}}'s budget:</h3>
     <h4>First written: {{budget.time}}</h4>
     <h4>Reference ID #{{budget.reference_id}}</h4>
- 
+    
     {% endfor %} -->
+    <!-- <img class='' src="{% static 'budget/map.jpg' %}" alt="Currency strewn across a map" > -->

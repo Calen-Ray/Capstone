@@ -1,8 +1,11 @@
-
 {% extends 'budget/base.html' %}
 {% block title %} Online budget made easy {% endblock %}
 
 {% block content %}
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/accessibility.js"></script>
+
 
 
 
@@ -33,13 +36,91 @@
         <p class="budget_details">Expenses: {{budget.expenses}}</p>
         <p class="budget_details">Debt: {{budget.debt}}</p>
         <p class="budget_details">Current savings level: {{budget.current_savings}}</p>
-        <p class="budget_details">Suggested savings changes: {{budget.savings_advice}}</p>
+        <br>
     </div>
+
+    <div class="col s10 m10 offset-s1 offset-m1 center-align">
+
+        <ul class="tabs">
+            <li class="tab col s3"><a class="active" href="#general">General template</a></li>
+            <li class="tab col s3"><a  href="#national">National template</a></li>
+            <li class="tab col s3 "><a href="#local">Local template</a></li>
+        </ul>
+
+
+<!-- This is for general tab -->
+    <div id="general" class="col s12">
+        <div class="income  center-align">
+    
+            <h4>General Rule of Thumb Reccomendations</h4>
+            <p class="budget_details">Giving: ${{budget.giving_rec}} (optional)</p>
+            <p class="budget_details">Saving: ${{budget.saving_rec}}</p>
+            <p class="budget_details">Food: ${{budget.food_rec}}</p>
+            <p class="budget_details">utilities: ${{budget.utilities_rec}}</p>
+            <p class="budget_details">Housing: ${{budget.housing_rec}}</p>
+            <p class="budget_details">Transportation: ${{budget.transportation_rec}}</p>
+            <p class="budget_details">Health: ${{budget.health_rec}}</p>
+            <p class="budget_details">Insurance costs: ${{budget.insurance_rec}}</p>
+            <p class="budget_details">Recreation: ${{budget.recreation_rec}}</p>
+            <p class="budget_details">Misc catagory: ${{budget.misc_rec}}</p>
+
+
+        </div>
+    </div>
+
+
+<!-- This is for national tab -->
+    <div id="national" class="col s12">
+        <div class="income  center-align">
+            <h4>A sample of national averages for income level: {{national_statistics.income}}</h4>
+            <h6>Sources from <a href="https://www.bls.gov/data/">The Consumer Expenditure Survey (CE)</a></h6>
+            <p class="budget_details">Food: ${{national_statistics.grocery_monthly}}</p>
+            <p class="budget_details">Housing: ${{national_statistics.housing_monthly}}</p>
+            <p class="budget_details">Transportation: ${{national_statistics.transportation_monthly}}</p>
+            <p class="budget_details">Health: ${{national_statistics.healthcare_monthly}}</p>
+            <p class="budget_details">Misc catagory: ${{national_statistics.misc_monthly}}</p>
+            <!-- <p class="budget_details">Giving: ${{national_statistics.giving_rec}}</p> -->
+            <!-- <p class="budget_details">Saving: ${{national_statistics.saving_rec}}</p> -->
+            <!-- <p class="budget_details">utilities: ${{national_statistics.utilities_monthly}}</p> -->
+            <!-- <p class="budget_details">Insurance costs: ${{national_statistics.insurance_monthly}}</p> -->
+            <!-- <p class="budget_details">Recreation: ${{national_statistics.recreation_monthly}}</p> -->
+        </div>
+    </div>
+
+<!-- This is for national tab -->
+<div id="local" class="col s12">    
+    <div class="income center-align">
+        <h4>Reccomendations based on your area</h4>
+
+            <div class="col s12">
+              <div class="row">
+                <div class="input-field col s12">
+                  <i class="material-icons prefix">question</i>
+                  <input type="text" id="autocomplete-input" class="autocomplete">
+                  <label for="autocomplete-input">State</label>
+                </div>
+              </div>
+            </div>
+
+            <div class="col s12">
+              <div class="row">
+                <div class="input-field col s12">
+                  <i class="material-icons prefix">question</i>
+                  <input type="text" id="autocomplete-input_cities"  class="autocomplete_cities">
+                  <label for="autocomplete-input_cities" >City</label>
+                </div>
+              </div>
+            </div>
+
+
+    </div>
+</div>
+
     
 </div>
 
 
-<div class='my-chart container'>
+<!-- <div class='my-chart container'>
     
     
     <table  class='charts-css bar show-labels show-primary-axis data-spacing-5'>
@@ -81,11 +162,107 @@
             
         </tbody>
         
-    </table>
+    </table> -->
 </div>
 
+<figure class="highcharts-figure">
+    <div id="container"></div>
+    <p class="highcharts-description">
+        **The above graph shows a budget based on your income level, if you were to go by economic rules of thumb. 
+    </p>
+</figure>
+
+<script>
+    Highcharts.chart('container', {
+    chart: {
+        plotBackgroundColor: null,
+        plotBorderWidth: 0,
+        plotShadow: false
+    },
+    title: {
+        text: 'Rule <br>of <br> Thumb',
+        align: 'center',
+        verticalAlign: 'middle',
+        y: 60
+    },
+    tooltip: {
+        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+    },
+    accessibility: {
+        point: {
+            valueSuffix: '%'
+        }
+    },
+    plotOptions: {
+        pie: {
+            dataLabels: {
+                enabled: true,
+                distance: -50,
+                style: {
+                    fontWeight: 'bold',
+                    color: 'white'
+                }
+            },
+            startAngle: -90,
+            endAngle: 90,
+            center: ['50%', '75%'],
+            size: '110%'
+        }
+    },
+    series: [{
+        type: 'pie',
+        name: 'Percent of budget',
+        innerSize: '50%',
+        data: [
+            ['giving', {{budget.giving_rec}}],
+            ['saving', {{budget.saving_rec}}],
+            ['food', {{budget.food_rec}}],
+            ['utilities', {{budget.utilities_rec}}],
+            ['housing', {{budget.housing_rec}}],
+            ['transportation', {{budget.transportation_rec}}],
+            ['health', {{budget.health_rec}}],
+            ['insurance', {{budget.insurance_rec}}],
+            ['recreation', {{budget.recreation_rec}}],
+            ['personal', {{budget.personal_rec}}],
+            ['miscellaneous', {{budget.misc}}],
+        ]
+    }]
+});
+
+</script>
+
+<script>
+    var el = document.querySelector('.tabs');
+    var instance = M.Tabs.init(el, {});
+
+    let cities_data
+    let cities_data_materialize = {}
+
+    var elems = document.querySelectorAll('.autocomplete');
+    var instances = M.Autocomplete.init(elems, {
+        data: {{states_formatted|safe }},
+        onAutocomplete: (el) => {
+            fetch('http://localhost:8000/budget/fetch/'+el)
+            .then((cities_data)=> {
+                return cities_data.json()
+            })
+            .then((cities_data_electric_boogalo) => {
+                cities_data = cities_data_electric_boogalo
+                
+                for (let data of cities_data.cities){
+                    cities_data_materialize[data.name] = ''
+                }
+                document.getElementsByClassName('autocomplete_cities').disabled = false
+            })
+        },
+    });
+
+    var elems_cities = document.querySelectorAll('.autocomplete_cities');
+    var instances_cities = M.Autocomplete.init(elems_cities, {data: cities_data_materialize });
 
 
+
+</script>
 
 {% else %}
 BAD REF NUMBER 
