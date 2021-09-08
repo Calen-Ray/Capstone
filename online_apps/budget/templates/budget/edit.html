@@ -9,27 +9,38 @@
 {% if ref_number %}
 <div class="container row">
     
+    {% if budget.name %}
     <H2 class='col s8 m8 offset-s2 offset-m2 center-align'>{{budget.name}}'s budget</H2>
-
     <h4 class='col s8 m8 offset-s2 offset-m2 center-align'>First written: {{budget.time}}</h4>
+    {% else %}
+    <H2 class='col s8 m8 offset-s2 offset-m2 center-align'>Your new budget</H2>
+    {% endif %}
     
+    {% if error %}
+    <h4 class='col s8 m8 offset-s2 offset-m2 center-align' style='color:red'>Please enter your data again, some was unable to be processed due to input characters</h4>
+    {% endif %}
     
-    <div class="income col s4 m4 offset-s2 offset-m2 center-align row">
+    <div class="income col s8 m8 offset-s2 offset-m2 center-align row">
         <form action="{% url 'budget:save' ref_number %}" method="POST">
             {% csrf_token %}
 
-            <div class="col s3 offset-s1 m3 offset-m1">
-                <label for=""> Ref-ID</label>
-                <input type="text" name="reference_id" id="" value='{{budget.reference_id}}'>
+            <div class="col s7 offset-s1 m7 offset-m1">
+                <label for="">name</label>
+                <input type="text" name="name" id="" value='{{budget.name}} '>
+            </div>
+
+            <div class="col s4 m4">
+                <label for="">Ref-ID</label>
+                <input type="text" name="reference_id" id="" value='{{ref_number}}' disabled>
             </div>
 
             <div class="col s3 offset-s1 m3 offset-m1">
-                <label for="">Income</label>
+                <label for="">Yearly Income</label>
                 <input type="text" name="income" id="" value='{{budget.income}} '>
             </div>
 
             <div class="col s3 offset-s1 m3 offset-m1">
-                <label for="">Tax</label>
+                <label for="">Tax percentage</label>
                 <input type="text" name="tax" id="" value='{{budget.tax}} '>
             </div>
 
@@ -47,12 +58,13 @@
                 <label for="">Savings</label>
                 <input type="text" name="current_savings" id="" value='{{budget.current_savings}} '>
             </div>
-        </div>
-
-
+            
+            <button class="col s2 offset-s1 m2 offset-m1 btn waves-effect  light-green darken-2 waves-green center-align" type="submit" name="action">Save!</button>
+        </form>
     </div>
-        <button class=" btn waves-effect waves-light center-align" type="submit" name="action">Save my budget</button>
-    </form>
+</div>
+
+
     
 </div>
 

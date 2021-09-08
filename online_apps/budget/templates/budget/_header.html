@@ -1,22 +1,33 @@
 
 {% block content %}
 <div class="header green-color row">
-    <h2 class='logo col s10 left m5'><a href="{% url 'budget:home' %}">Budget bird</a></h2>
+    <h2 class='logo col s12 m5'><a href="{% url 'budget:home' %}">Budget bird</a></h2>
 
+    <div class="forms col m7 s12 row">
 
-        <form class="col s10 m5 right" action="{% url 'budget:details' %}" method='POST'>
+        <form class="col m5 " action="{% url 'budget:details' %}" method='POST'>
             {% csrf_token %}
-
-            <div class="row">
-                <button class=" col s2 m3 btn waves-effect waves-light right" type="submit" name="action">Find my budget!<i class="material-icons right">send</i></button>
-                <div class="input-field col s7 m4 right">
-                    <i class="material-icons prefix">insert_chart</i>
-                    <textarea name="ref_number" id="icon_prefix2" class="materialize-textarea"></textarea>
-                    <label for="icon_prefix2">Reference ID</label>
-                </div>
+            
+            <button class=" col s5 m5 btn waves-effect waves-green grey  right" type="submit" name="action">Find my budget!</button>
+            <div class="input-field col s5 m4 right">
+                <i class="material-icons prefix">insert_chart</i>
+                <textarea name="ref_number" id="icon_prefix2" class="materialize-textarea"></textarea>
+                <label for="icon_prefix2">ID #</label>
             </div>
         </form>
-
-
+            
+        <p class='col s1 m1'>
+            <br>
+            OR
+        </p>
+        <form class="col m5 s12" action="{% url 'budget:edit' 'create' %}" method='GET'>
+            {% csrf_token %}
+            
+            <button class=" btn waves-effect waves-green grey " type="submit" name="action">Create a budget!<i class="material-icons right">create</i></button>
+        </form>
+            
+        </div>
+        
+    </div>
 </div>
 {% endblock %}

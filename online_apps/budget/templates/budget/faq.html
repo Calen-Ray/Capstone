@@ -1,0 +1,70 @@
+{% extends 'budget/base.html' %}
+{% block title %} Online budget made easy {% endblock %}
+
+{% block content %}
+
+
+<h3 class='center-align'>
+    The frequently asked questions FAQ section
+</h3>
+<br>
+
+<ul class='container'>
+    <li>
+        <h5>
+            "Are there any promotional material in this website?"
+        </h5>
+        <p>
+            No, there are no collaborations, sponsored links, or non federally accumulated base-data.
+            Budget bird is designed to provide a budget template and resources for those who desire.  
+        </p>
+    </li>
+    <li>
+        <h5>
+            "Where do you get data on national average costs based on income level?"
+        </h5>
+        <p>
+            So glad you asked. The data was semi-painstakingly aquired from the <a href="https://www.bls.gov/">US bureau of labor statistics</a>, they have a wonderful section of national averages on expendature you can sort by income earned pre tax.
+        </p>
+    </li>
+    <li>
+        <h5>
+            "I dont agree with some of the material posted."
+        </h5>
+        <p>
+            Entirely understandable, personal finance is in fact... personal. If you have legitimate concerns of data or documents from the library please reachout to me on the contact page.
+        </p>
+    </li>
+    <li>
+        <h5>
+            "How do you calculate the local cost of living pricing?"
+        </h5>
+        <p>
+            This is extrapolated from the national average data multiplied by whats called the 'cost of living index' in each city. For the nerdy out there it looks something like this: <br>
+            <code>
+                {'name': 'Portland', 'index': 134.7, 'grocery': 113.1, 'housing': 184.1, 'utilities': 88.5, 'transportation': 128.4, 'healthcare': 117.1, 'misc': 121.0}
+            </code>
+            <br>
+            Where you take the national average as 100 points, so in Portland, its an average of 34.7% higher general cost of living, or 84.1% higher in cost of housing, 13.1% higher in groceries. etc
+        </p>
+    </li>
+    <li>
+        <h5>
+            "Will the data continue to be updated?"
+        </h5>
+        <p>
+            Unless this tool becomes popular, I will likely leave the data as-is. 2019-2021 compiled.
+        </p>
+    </li>
+    <li>
+        <h5>
+            "Can I share my budget code?"
+        </h5>
+        <p>
+            Yes, feel free to share your budget code, but keep the pin secret to allow you to be the only one who can edit. 
+        </p>
+    </li>
+</ul>
+
+
+{% endblock %}

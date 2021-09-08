@@ -8,32 +8,6 @@ from django.db.models.fields.related import ForeignKey
 
 
 class Details(models.Model):
-# '''
-# what does a budget need?
-# name,
-# date,
-# projected income,
-# projected taxes, optional? maybe a dict of state tax rates?
-# expenses
-# debts
-# savings payment
-# '''
-
-# '''
-# giving = 10%
-# saving = 10%
-# food = 10%
-# utilities = 5%
-# housing = 25%
-# transportation = 10%
-# health = 5%
-# insurance = 10%-25%
-# recreation = 5%-10%
-# personal spending = 5%-10%
-# miscellaneous = 5%-10%
-# '''
-
-
 
     # basics
     reference_id = CharField(max_length=25)
@@ -109,8 +83,6 @@ class Details(models.Model):
 
         else:
             return f'Error, see savings_advice in models.py'
-
-
 
     def __str__(self):
         return f"{self.name}'s budget"

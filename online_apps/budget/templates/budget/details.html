@@ -6,6 +6,12 @@
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
 <script src="https://code.highcharts.com/modules/accessibility.js"></script>
 
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/highcharts-more.js"></script>
+<script src="https://code.highcharts.com/modules/solid-gauge.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<script src="https://code.highcharts.com/modules/accessibility.js"></script>
 
 
 
@@ -15,21 +21,23 @@
 {% if ref_number %}
 <div class="container row">
     
-    <H2 class='col s8 m8 offset-s2 offset-m2 center-align'>{{budget.name}}'s budget</H2>
-    <form action="{% url 'budget:edit' ref_number %}" method="POST" class='center-align'>
-        {% csrf_token %}
-        <button class=" col s2 m4 offset-m4 btn waves-effect waves-light " type="submit" name="action">Edit my Budget</button>
-    </form>
-    <h4 class='col s8 m8 offset-s2 offset-m2 center-align'>First written: {{budget.time}}</h4>
-    
-    
-    <div class="income col s4 m4 offset-s2 offset-m2 center-align">
-        <p class="budget_details">Yearly Income: {{budget.income}}</p>
-        <p class="budget_details">Monthly Income: {{budget.monthly_income}}</p>
-        {% if budget.tax > 0 %}
-        <p>Projected tax rate: {{budget.tax}}%</p>
-        <p>Project tax paid Monthly: {{budget.taxes_monthly}}</p>
-        {% endif %}
+    <div class=''>
+
+        <H2 class='col s8 m8 offset-s2 offset-m2 center-align'>{{budget.name}}'s budget</H2>
+        <form action="{% url 'budget:edit' ref_number %}" method="POST" class='center-align'>
+            {% csrf_token %}
+            <button class=" col s2 m4 offset-m4 btn waves-effect waves-green  light-green darken-2 " type="submit" name="action">Edit my Budget</button>
+        </form>
+        <h4 class='col s8 m8 offset-s2 offset-m2 center-align'>First written: {{budget.time}}</h4>
+        
+        
+        <div class="income col s4 m4 offset-s2 offset-m2 center-align">
+            <p class="budget_details">Yearly Income: {{budget.income}}</p>
+            <p class="budget_details">Monthly Income: {{budget.monthly_income}}</p>
+            {% if budget.tax > 0 %}
+            <p>Projected tax rate: {{budget.tax}}%</p>
+            <p>Project tax paid Monthly: {{budget.taxes_monthly}}</p>
+            {% endif %}
     </div>
     
     <div class="col s4 m4 center-align">
@@ -38,39 +46,64 @@
         <p class="budget_details">Current savings level: {{budget.current_savings}}</p>
         <br>
     </div>
+    <br>
 
-    <div class="col s10 m10 offset-s1 offset-m1 center-align">
+</div>
+
+    <div class="col s12 m12  center-align ">
 
         <ul class="tabs">
-            <li class="tab col s3"><a class="active" href="#general">General template</a></li>
-            <li class="tab col s3"><a  href="#national">National template</a></li>
-            <li class="tab col s3 "><a href="#local">Local template</a></li>
+            <li class="tab "><a class="active" href="#general">General template</a></li>
+            <li class="tab "><a  href="#national">National template</a></li>
+            <li class="tab  "><a href="#local">Local template</a></li>
         </ul>
+
 
 
 <!-- This is for general tab -->
     <div id="general" class="col s12">
-        <div class="income  center-align">
+        <div class="income  center-align" >
     
             <h4>General Rule of Thumb Reccomendations</h4>
-            <p class="budget_details">Giving: ${{budget.giving_rec}} (optional)</p>
-            <p class="budget_details">Saving: ${{budget.saving_rec}}</p>
-            <p class="budget_details">Food: ${{budget.food_rec}}</p>
-            <p class="budget_details">utilities: ${{budget.utilities_rec}}</p>
-            <p class="budget_details">Housing: ${{budget.housing_rec}}</p>
-            <p class="budget_details">Transportation: ${{budget.transportation_rec}}</p>
-            <p class="budget_details">Health: ${{budget.health_rec}}</p>
-            <p class="budget_details">Insurance costs: ${{budget.insurance_rec}}</p>
-            <p class="budget_details">Recreation: ${{budget.recreation_rec}}</p>
-            <p class="budget_details">Misc catagory: ${{budget.misc_rec}}</p>
 
+            <p class='col s12 m12'>
+                Getting your expenses as close as possible or lower than the economic rules of thumb is a great way to keep expenses in check, 
+                however with how widely varying costs are it's not always feasable. 
+                I.E. Portland ORs rent is 84% higher than national average.
+            </p>
+            <br><br><br>
+            <div class='col m6 s6'>
+                <br>
+                <p class='budget_details'>Classic rules of budgeting applied to your listed income level:</p>
+                <br>
 
+                <p class="budget_details">Giving: ${{budget.giving_rec}} (optional)</p>
+                <p class="budget_details">Saving: ${{budget.saving_rec}}</p>
+                <p class="budget_details">Food: ${{budget.food_rec}}</p>
+                <p class="budget_details">utilities: ${{budget.utilities_rec}}</p>
+                <p class="budget_details">Housing: ${{budget.housing_rec}}</p>
+                <p class="budget_details">Transportation: ${{budget.transportation_rec}}</p>
+                <p class="budget_details">Health: ${{budget.health_rec}}</p>
+                <p class="budget_details">Insurance costs: ${{budget.insurance_rec}}</p>
+                <p class="budget_details">Recreation: ${{budget.recreation_rec}}</p>
+                <p class="budget_details">Misc catagory: ${{budget.misc_rec}}</p>
+                <h5></h5>
+            </div>
+
+            <div class="col m6 s6">
+                <figure class="highcharts-figure">
+                    <div id="container"></div>
+                    <p class="highcharts-description">
+                        **The above graph shows a budget based on your income level, if you were to go by economic rules of thumb. Often averages are a poor way to judge costs, but are a important point of data to have
+                    </p>
+                </figure>
+            </div>
         </div>
     </div>
 
 
 <!-- This is for national tab -->
-    <div id="national" class="col s12">
+    <div id="national" class="col s12 m12">
         <div class="income  center-align">
             <h4>A sample of national averages for income level: {{national_statistics.income}}</h4>
             <h6>Sources from <a href="https://www.bls.gov/data/">The Consumer Expenditure Survey (CE)</a></h6>
@@ -88,36 +121,45 @@
     </div>
 
 <!-- This is for national tab -->
-<div id="local" class="col s12">    
+<div id="local" class="col s12 m12">    
     <div class="income center-align">
-        <h4>Reccomendations based on your area</h4>
+        <h4>Insight based on your area</h4>
+        <div id="search_tool">
 
             <div class="col s12">
-              <div class="row">
-                <div class="input-field col s12">
-                  <i class="material-icons prefix">question</i>
-                  <input type="text" id="autocomplete-input" class="autocomplete">
-                  <label for="autocomplete-input">State</label>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <i class="material-icons prefix">question</i>
+                        <input type="text" id="autocomplete-input" class="autocomplete">
+                        <label for="autocomplete-input">State</label>
+                    </div>
                 </div>
-              </div>
             </div>
-
+            
             <div class="col s12">
-              <div class="row">
-                <div class="input-field col s12">
-                  <i class="material-icons prefix">question</i>
-                  <input type="text" id="autocomplete-input_cities"  class="autocomplete_cities">
-                  <label for="autocomplete-input_cities" >City</label>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <i class="material-icons prefix">question</i>
+                        <input type="text" id="autocomplete-input_cities"  class="autocomplete_cities">
+                        <label for="autocomplete-input_cities" >City</label>
+                    </div>
                 </div>
-              </div>
             </div>
+        </div>
 
+            <div class='local_data row'  id="local_data">
+                
+                
+
+            </div>
 
     </div>
 </div>
 
     
 </div>
+
+
 
 
 <!-- <div class='my-chart container'>
@@ -165,12 +207,7 @@
     </table> -->
 </div>
 
-<figure class="highcharts-figure">
-    <div id="container"></div>
-    <p class="highcharts-description">
-        **The above graph shows a budget based on your income level, if you were to go by economic rules of thumb. 
-    </p>
-</figure>
+
 
 <script>
     Highcharts.chart('container', {
@@ -183,7 +220,7 @@
         text: 'Rule <br>of <br> Thumb',
         align: 'center',
         verticalAlign: 'middle',
-        y: 60
+        y: 0
     },
     tooltip: {
         pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
@@ -205,8 +242,8 @@
             },
             startAngle: -90,
             endAngle: 90,
-            center: ['50%', '75%'],
-            size: '110%'
+            center: ['50%', '50%'],
+            size: '90%'
         }
     },
     series: [{
@@ -237,11 +274,15 @@
 
     let cities_data
     let cities_data_materialize = {}
+    let state 
+    let local
+    let income_level = '{{national_statistics.income}}'
 
     var elems = document.querySelectorAll('.autocomplete');
     var instances = M.Autocomplete.init(elems, {
         data: {{states_formatted|safe }},
         onAutocomplete: (el) => {
+            state = el 
             fetch('http://localhost:8000/budget/fetch/'+el)
             .then((cities_data)=> {
                 return cities_data.json()
@@ -258,7 +299,307 @@
     });
 
     var elems_cities = document.querySelectorAll('.autocomplete_cities');
-    var instances_cities = M.Autocomplete.init(elems_cities, {data: cities_data_materialize });
+    var instances_cities = M.Autocomplete.init(elems_cities, {
+        data: cities_data_materialize ,
+        onAutocomplete: (el) => {
+            console.log(state, el)
+            fetch('http://localhost:8000/budget/fetch_city/'+state+'/'+el+'/'+income_level+'/')
+            .then((city_data) => {
+                return city_data.json()
+            })
+            .then((local_data)=>{
+                local = local_data
+                document.getElementById('search_tool').style = 'display: none;'
+                document.getElementById('local_data').innerHTML = `
+                    <div class='col s6 m6'>
+                            <figure class="highcharts-figure">
+                                <div id="container_local"></div>
+                        </figure>
+                    </div>
+
+                    <div class="col s6 m6">
+                        <figure class="highcharts-figure">
+                            <div id="container-speed" class="chart-container"></div>
+                        </figure>
+                    </div>
+
+
+                    <div class="col s12 m6 overflow_test">
+                            <div class="card horizontal">
+                                    <div class="card-image">
+                                    <img src="https://cdn.pixabay.com/photo/2015/03/26/10/04/buildings-690868_960_720.jpg">
+                                </div>
+                                <div class="card-stacked">
+                                    <div class="card-content">
+                                    <p>General costs for living in ${local_data.name} is ${local_data.index_percent} compared to national average. </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+
+                        <div class="col s12 m6 overflow_test">
+                            <div class="card horizontal">
+                                    <div class="card-image">
+                                    <img src="https://cdn.pixabay.com/photo/2016/11/18/17/46/house-1836070_960_720.jpg">
+                                </div>
+                                <div class="card-stacked">
+                                    <div class="card-content">
+                                    <p>monthly costs for housing in ${local_data.name} is $${local_data.housing_local}, 
+                                        thats ${local_data.housing_percent} compared to the national average of $ {{national_statistics.housing_monthly}}. 
+                                        That is a difference of $${local_data.housing_difference}.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col s12 m6 overflow_test">
+                            <div class="card horizontal">
+                                    <div class="card-image">
+                                    <img src="https://cdn.pixabay.com/photo/2016/03/02/20/13/grocery-1232944_960_720.jpg">
+                                </div>
+                                <div class="card-stacked">
+                                    <div class="card-content">
+                                    <p>monthly costs for Groceries in ${local_data.name} is $${local_data.grocery_local}, 
+                                        thats  ${local_data.grocery_percent} compared to the national average of $ {{national_statistics.grocery_monthly}}. 
+                                        That is a difference of $${local_data.grocery_difference}.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col s12 m6 overflow_test">
+                            <div class="card horizontal">
+                                    <div class="card-image">
+                                    <img src="https://cdn.pixabay.com/photo/2014/10/26/15/25/pylon-503935_960_720.jpg">
+                                </div>
+                                <div class="card-stacked">
+                                    <div class="card-content">
+                                    <p>monthly costs for Utilities in ${local_data.name} is ${local_data.utilities_percent} compared to the national average.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col s12 m6 overflow_test">
+                            <div class="card horizontal">
+                                    <div class="card-image">
+                                    <img src="https://cdn.pixabay.com/photo/2015/04/20/13/28/taxi-731334_960_720.jpg">
+                                </div>
+                                <div class="card-stacked">
+                                    <div class="card-content">
+                                    <p>monthly costs for Transportation in ${local_data.name} is $${local_data.transportation_local} , 
+                                        thats ${local_data.transportation_percent} compared to the national average of $ {{national_statistics.transportation_monthly}}. 
+                                        That is a difference of $${local_data.transportation_difference}.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col s12 m6 overflow_test">
+                            <div class="card horizontal">
+                                    <div class="card-image">
+                                    <img src="https://cdn.pixabay.com/photo/2016/10/10/13/20/drugs-1728381_960_720.jpg">
+                                </div>
+                                <div class="card-stacked">
+                                    <div class="card-content">
+                                    <p>monthly costs for Healthcare in ${local_data.name} is $${local_data.healthcare_local}, 
+                                        thats ${local_data.healthcare_percent} compared to the national average of $ {{national_statistics.healthcare_monthly}}. 
+                                        That is a difference of $${local_data.healthcare_difference}.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col s12 m6 overflow_test">
+                            <div class="card horizontal">
+                                    <div class="card-image">
+                                    <img src="https://cdn.pixabay.com/photo/2016/11/29/09/00/doughnuts-1868573_960_720.jpg">
+                                </div>
+                                <div class="card-stacked">
+                                    <div class="card-content">
+                                    <p>monthly costs for Misc. goods in ${local_data.name} is $${local_data.misc_local}, 
+                                        thats ${local_data.misc_percent} compared to the national average of $ {{national_statistics.misc_monthly}}. 
+                                        That is a difference of $${local_data.misc_difference}.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                `
+
+                var gaugeOptions = {
+                    chart: {
+                        type: 'solidgauge'
+                    },
+
+                    title: {
+                        text: 'Cost of Living rating'
+                    },
+
+                    pane: {
+                        center: ['50%', '85%'],
+                        size: '100%',
+                        startAngle: -90,
+                        endAngle: 90,
+                        background: {
+                            backgroundColor:
+                                Highcharts.defaultOptions.legend.backgroundColor || '#EEE',
+                            innerRadius: '60%',
+                            outerRadius: '100%',
+                            shape: 'arc'
+                        }
+                    },
+
+                    exporting: {
+                        enabled: false
+                    },
+
+                    tooltip: {
+                        enabled: false
+                    },
+
+                    // the value axis
+                    yAxis: {
+                        stops: [
+                            [0.1, '#55BF3B'], // green
+                            [0.5, '#DDDF0D'], // yellow
+                            [0.9, '#DF5353'] // red
+                        ],
+                        lineWidth: 0,
+                        tickWidth: 0,
+                        minorTickInterval: null,
+                        tickAmount: 2,
+                        title: {
+                            y: -70
+                        },
+                        labels: {
+                            y: 16
+                        }
+                    },
+
+                    plotOptions: {
+                        solidgauge: {
+                            dataLabels: {
+                                y: 5,
+                                borderWidth: 0,
+                                useHTML: true
+                            }
+                        }
+                    }
+                };
+
+                // The speed gauge
+                var chartSpeed = Highcharts.chart('container-speed', Highcharts.merge(gaugeOptions, {
+                    yAxis: {
+                        min: 0,
+                        max: 200,
+                        title: false
+                    },
+
+                    credits: {
+                        enabled: false
+                    },
+
+                    series: [{
+                        name: 'Cost of Living',
+                        data: [local_data.index],
+                        dataLabels: {
+                            format:
+                                '<div style="text-align:center">' +
+                                '<span style="font-size:25px">{y}</span><br/>' +
+                                '</div>'
+                        },
+                        tooltip: {
+                            valueSuffix: 'Cost of living'
+                        }
+                    }]
+
+                }));
+
+
+
+
+                                
+                    Highcharts.chart('container_local', {
+                colors: ['#058009', '#c0cc39'],
+                chart: {
+                    type: 'column',
+                    inverted: true,
+                    polar: true
+                },
+                title: {
+                    text: 'Local data comparison'
+                },
+                tooltip: {
+                    outside: true
+                },
+                pane: {
+                    size: '85%',
+                    innerSize: '20%',
+                    endAngle: 270
+                },
+                xAxis: {
+                    tickInterval: 1,
+                    labels: {
+                    align: 'right',
+                    useHTML: true,
+                    allowOverlap: true,
+                    step: 1,
+                    y: 3,
+                    style: {
+                        fontSize: '13px'
+                    }
+                    },
+                    lineWidth: 0,
+                    categories: [
+                    'Housing <span class="f16">' +
+                    '</span>',
+                    'Groceries <span class="f16">' +
+                    '</span>',
+                    // 'Utilities <span class="f16">' +
+                    // '</span>',
+                    'Transportation <span class="f16">' +
+                    '</span>',
+                    'Healthcare <span class="f16">' +
+                    '</span>',
+                    'Misc <span class="f16">' +
+                    '</span>',
+                    ]
+                },
+                yAxis: {
+                    crosshair: {
+                    enabled: true,
+                    color: '#333'
+                    },
+                    lineWidth: 0,
+                    tickInterval: 150,
+                    reversedStacks: false,
+                    endOnTick: true,
+                    showLastLabel: true
+                },
+                plotOptions: {
+                    column: {
+                    stacking: 'normal',
+                    borderWidth: 0,
+                    pointPadding: 0,
+                    groupPadding: 0.15
+                    }
+                },
+                series: [{
+                    name: 'National Average Monthly cost',
+                    data: [local_data.national_housing, local_data.national_grocery, local_data.national_transportation, local_data.national_healthcare, local_data.national_misc]
+                }, {
+                    name: `Estimated extra cost in ${local_data.name}`,
+                    data: [local_data.housing_difference, local_data.grocery_difference, local_data.transportation_difference, local_data.healthcare_difference, local_data.misc_difference]
+                }]
+
+});
+            })
+        }
+    });
 
 
 

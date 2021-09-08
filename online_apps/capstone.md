@@ -69,28 +69,28 @@ You are killing me here, there is no signing up. thats the whole point.
 but lets review what needs to be done:
 ​
 week one:
- - be overwhelmed by the project. (dont worry this we would do this for even small projects)
- - tackle small things like getting django setup
- - get the landing page setup
- - color scheme time.jpg
- - setup headers, footers, landing page beautification (this is easy and makes the project feel further along. )
-- setup the model(s)
-- make blank pages and setup the url structure for the details, edit, resources, more info, and FAQ pages
+ <!-- - be overwhelmed by the project. (dont worry this we would do this for even small projects) -->
+ <!-- - tackle small things like getting django setup -->
+ <!-- - get the landing page setup -->
+ <!-- - color scheme time.jpg -->
+ <!-- - setup headers, footers, landing page beautification (this is easy and makes the project feel further along. ) -->
+<!-- - setup the model(s) -->
+<!-- - make blank pages and setup the url structure for the details, edit, resources, more info, and FAQ pages -->
 ​
 week two: 
-- back-end time, display a default model on our details page and show access to the data
-- be able to reference different budgets with different ref-numbers
+<!-- - back-end time, display a default model on our details page and show access to the data -->
+<!-- - be able to reference different budgets with different ref-numbers -->
 - create a POST edit form for adjusting values in the model.  (ooh, maybe lock this with a model specific pin)
-- r/dataisbeautiful time, source a low cost or free visualization library like AMcharts. 
+<!-- - r/dataisbeautiful time, source a low cost or free visualization library like AMcharts.  -->
 - get some graphs working on the detail screen, experiment with keeping the data live with javascript.
 ​
 week three:
-- compile resources on financial literacy. 
-- add resource links to resource library
+<!-- - compile resources on financial literacy. -->
+<!-- - add resource links to resource library -->
 - compile advice options for simple budget pitfalls
 ​
 week four:
-- cry because class is almost over.
+<!-- - cry because class is almost over. -->
 - polish things up. make the landing page pop.
 - make the details screen UX friendly. 
 - make the edit page clean.
